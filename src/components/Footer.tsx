@@ -1,3 +1,5 @@
+import { GithubIcon } from "lucide-react";
+
 export function Footer() {
   return (
     <footer className="relative z-10 bg-gradient-to-t from-[rgba(3,7,18,0.9)] to-transparent backdrop-blur-md border-t border-[rgba(45,212,168,0.1)] py-6 px-8 text-center">
@@ -33,7 +35,7 @@ export function Footer() {
           Lexical
         </a>
       </p>
-      <p className="flex items-center justify-center gap-1 text-xs text-[#6b7280]">
+      <p className="flex items-center justify-center gap-2 text-xs text-[#6b7280]">
         <span>Built by</span>
         <a
           href="https://quebi.de/"
@@ -42,6 +44,16 @@ export function Footer() {
           className="text-[#2dd4a8] font-medium transition-all duration-300 hover:text-[#f9fafb] hover:drop-shadow-[0_0_10px_rgba(45,212,168,0.5)]"
         >
           quebi.de
+        </a>
+        <span>|</span>
+        <a
+          href="https://github.com/quebi-gmbh/shareable-latex"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="View source on GitHub"
+          className="text-[#9ca3af] transition-all duration-300 hover:text-[#f9fafb] hover:drop-shadow-[0_0_10px_rgba(45,212,168,0.5)]"
+        >
+          <GithubIcon size={16} />
         </a>
       </p>
     </footer>
