@@ -9,6 +9,7 @@ export type ArrayFormat =
   | 'latex-Vmatrix'   // \begin{Vmatrix} - double vertical bars || ||
   | 'matlab'
   | 'python'
+  | 'numpy'           // NumPy array with Fraction support
   | 'cpp';
 
 // MathJax-compatible formats that can be previewed and downloaded

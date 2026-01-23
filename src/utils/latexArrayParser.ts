@@ -3,6 +3,21 @@ import type { ParsedTable, TableRow, TableAlignment } from '../types/table';
 type MatrixEnvironment = 'array' | 'matrix' | 'pmatrix' | 'bmatrix' | 'Bmatrix' | 'vmatrix' | 'Vmatrix';
 
 /**
+ * Convert LaTeX \frac{n}{d} to simple fraction n/d
+ * Handles: \frac{1}{3}, -\frac{2}{5}, \frac{-1}{3}
+ */
+function convertLatexFracToSimple(content: string): string {
+  // Match \frac{numerator}{denominator} with optional leading minus
+  return content.replace(
+    /(-?)\\frac\{(-?\d+)\}\{(\d+)\}/g,
+    (_, leadingMinus, num, den) => {
+      const numerator = leadingMinus ? -Math.abs(parseInt(num, 10)) : parseInt(num, 10);
+      return `${numerator}/${den}`;
+    }
+  );
+}
+
+/**
  * Parse column specification from array environment
  * e.g., "lcr" -> ['left', 'center', 'right']
  */
@@ -43,8 +58,8 @@ function parseMatrixContent(content: string, columnCount: number): TableRow[] {
     // Split by & (cell separator)
     const cellStrings = rowStr.split('&').map((c) => c.trim());
 
-    const cells = cellStrings.map((content) => ({
-      content,
+    const cells = cellStrings.map((cellContent) => ({
+      content: convertLatexFracToSimple(cellContent),
     }));
 
     // Pad with empty cells if needed

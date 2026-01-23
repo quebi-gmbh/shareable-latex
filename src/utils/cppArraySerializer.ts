@@ -1,7 +1,9 @@
 import type { ParsedTable } from '../types/table';
+import { isFraction, parseFraction, isNumericOrFraction } from './fractionUtils';
 
 /**
  * Serialize ParsedTable to C++ initializer list syntax
+ * Fractions are converted to float division (1.0/3.0) to preserve precision
  */
 export function serializeTableToCpp(table: ParsedTable): string {
   if (!table || table.rows.length === 0) {
@@ -21,7 +23,7 @@ export function serializeTableToCpp(table: ParsedTable): string {
   return '{' + rowStrings.join(', ') + '}';
 }
 
-function isNumeric(value: string): boolean {
+function isNumericWithSuffix(value: string): boolean {
   if (!value || value.trim() === '') return false;
   const trimmed = value.trim();
   // Check for valid C++ numeric: integers, decimals, scientific notation
@@ -34,8 +36,21 @@ function formatCppValue(value: string): string {
     return '""';
   }
 
-  // If it's a number, return as-is
-  if (isNumeric(value)) {
+  // Check for fraction - convert to float division for precision
+  if (isFraction(value)) {
+    const frac = parseFraction(value);
+    if (frac) {
+      return `${frac.numerator}.0/${frac.denominator}.0`;
+    }
+  }
+
+  // If it's a number (with optional suffix), return as-is
+  if (isNumericWithSuffix(value)) {
+    return value;
+  }
+
+  // Also check standard numeric without suffix
+  if (isNumericOrFraction(value)) {
     return value;
   }
 

@@ -1,4 +1,5 @@
 import type { ParsedTable } from '../types/table';
+import { isFraction, parseFraction, formatFractionLatex } from './fractionUtils';
 
 type MatrixEnvironment = 'array' | 'matrix' | 'pmatrix' | 'bmatrix' | 'Bmatrix' | 'vmatrix' | 'Vmatrix';
 
@@ -24,6 +25,19 @@ function buildArrayColumnSpec(table: ParsedTable): string {
 }
 
 /**
+ * Transform cell content, converting fractions to \frac{}{} syntax
+ */
+function transformCellContent(content: string): string {
+  if (isFraction(content)) {
+    const frac = parseFraction(content);
+    if (frac) {
+      return formatFractionLatex(frac);
+    }
+  }
+  return content;
+}
+
+/**
  * Serialize table to a LaTeX matrix/array environment
  */
 function serializeToMatrixEnvironment(
@@ -37,7 +51,7 @@ function serializeToMatrixEnvironment(
   const rows: string[] = [];
 
   for (const row of table.rows) {
-    const cellContents = row.cells.map((cell) => cell.content || '');
+    const cellContents = row.cells.map((cell) => transformCellContent(cell.content || ''));
     rows.push(cellContents.join(' & '));
   }
 

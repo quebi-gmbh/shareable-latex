@@ -1,7 +1,9 @@
 import type { ParsedTable } from '../types/table';
+import { isNumericOrFraction } from './fractionUtils';
 
 /**
- * Serialize ParsedTable to Python/NumPy array syntax
+ * Serialize ParsedTable to Python array syntax
+ * Fractions like 1/3 are valid Python expressions (evaluate to float)
  */
 export function serializeTableToPython(table: ParsedTable): string {
   if (!table || table.rows.length === 0) {
@@ -21,20 +23,13 @@ export function serializeTableToPython(table: ParsedTable): string {
   return '[' + rowStrings.join(', ') + ']';
 }
 
-function isNumeric(value: string): boolean {
-  if (!value || value.trim() === '') return false;
-  const trimmed = value.trim();
-  // Check for valid Python numeric: integers, decimals, scientific notation
-  return /^-?(\d+\.?\d*|\.\d+)([eE][+-]?\d+)?$/.test(trimmed);
-}
-
 function formatPythonValue(value: string): string {
   if (!value || value.trim() === '') {
     return "''";
   }
 
-  // If it's a number, return as-is
-  if (isNumeric(value)) {
+  // If it's a number or fraction, return as-is
+  if (isNumericOrFraction(value)) {
     return value;
   }
 

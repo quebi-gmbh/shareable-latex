@@ -1,8 +1,10 @@
 import type { ParsedTable } from '../types/table';
+import { isNumericOrFraction } from './fractionUtils';
 
 /**
  * Serialize ParsedTable to MATLAB array syntax
  * Uses cell array syntax {'a', 'b'} if any non-numeric content is detected
+ * Fractions like 1/3 are valid MATLAB numeric expressions
  */
 export function serializeTableToMatlab(table: ParsedTable): string {
   if (!table || table.rows.length === 0) {
@@ -37,13 +39,11 @@ export function serializeTableToMatlab(table: ParsedTable): string {
 
 function isNumeric(value: string): boolean {
   if (!value || value.trim() === '') return true; // Empty treated as 0
-  const trimmed = value.trim();
-  // Check for valid MATLAB numeric: integers, decimals, scientific notation
-  return /^-?(\d+\.?\d*|\.\d+)([eE][+-]?\d+)?$/.test(trimmed);
+  return isNumericOrFraction(value);
 }
 
 function formatMatlabString(value: string): string {
-  // If it's a number, return as-is
+  // If it's a number or fraction, return as-is
   if (isNumeric(value)) {
     return value || '0';
   }

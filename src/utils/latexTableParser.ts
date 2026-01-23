@@ -1,6 +1,20 @@
 import type { ParsedTable, TableRow, TableCell, TableAlignment } from '../types/table';
 
 /**
+ * Convert LaTeX \frac{n}{d} to simple fraction n/d
+ * Handles: \frac{1}{3}, -\frac{2}{5}, \frac{-1}{3}
+ */
+function convertLatexFracToSimple(content: string): string {
+  return content.replace(
+    /(-?)\\frac\{(-?\d+)\}\{(\d+)\}/g,
+    (_, leadingMinus, num, den) => {
+      const numerator = leadingMinus ? -Math.abs(parseInt(num, 10)) : parseInt(num, 10);
+      return `${numerator}/${den}`;
+    }
+  );
+}
+
+/**
  * Parse a LaTeX tabular environment into structured data
  */
 export function parseLatexTable(latex: string): ParsedTable | null {
@@ -176,7 +190,7 @@ function parseRowCells(
     if (multicolMatch) {
       const colSpan = parseInt(multicolMatch[1], 10);
       const alignSpec = multicolMatch[2];
-      const content = multicolMatch[3];
+      const content = convertLatexFracToSimple(multicolMatch[3]);
 
       let alignment: TableAlignment = 'center';
       if (alignSpec.includes('l')) alignment = 'left';
@@ -189,7 +203,7 @@ function parseRowCells(
       });
     } else {
       cells.push({
-        content: cellContent,
+        content: convertLatexFracToSimple(cellContent),
         alignment: alignments[i] || 'left',
       });
     }

@@ -24,6 +24,8 @@ import { parseMatlabArray } from './matlabArrayParser';
 import { serializeTableToMatlab } from './matlabArraySerializer';
 import { parsePythonArray } from './pythonArrayParser';
 import { serializeTableToPython } from './pythonArraySerializer';
+import { parseNumpyArray } from './numpyArrayParser';
+import { serializeTableToNumpy } from './numpyArraySerializer';
 import { parseCppArray } from './cppArrayParser';
 import { serializeTableToCpp } from './cppArraySerializer';
 
@@ -137,8 +139,15 @@ Cell 1 & Cell 2 & Cell 3 \\\\
   python: {
     id: 'python',
     label: 'Python',
-    description: 'Python/NumPy 2D array',
+    description: 'Python 2D list',
     placeholder: `[[1, 2, 3], [4, 5, 6], [7, 8, 9]]`,
+  },
+  numpy: {
+    id: 'numpy',
+    label: 'NumPy',
+    description: 'NumPy array with Fraction support',
+    placeholder: `import numpy as np
+np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])`,
   },
   cpp: {
     id: 'cpp',
@@ -159,6 +168,7 @@ export const FORMAT_ORDER: ArrayFormat[] = [
   'latex-Vmatrix',
   'matlab',
   'python',
+  'numpy',
   'cpp',
 ];
 
@@ -176,6 +186,7 @@ const parsers: Record<ArrayFormat, Parser> = {
   'latex-Vmatrix': parseLatexVmatrixDouble,
   matlab: parseMatlabArray,
   python: parsePythonArray,
+  numpy: parseNumpyArray,
   cpp: parseCppArray,
 };
 
@@ -190,6 +201,7 @@ const serializers: Record<ArrayFormat, Serializer> = {
   'latex-Vmatrix': serializeToLatexVmatrixDouble,
   matlab: serializeTableToMatlab,
   python: serializeTableToPython,
+  numpy: serializeTableToNumpy,
   cpp: serializeTableToCpp,
 };
 
