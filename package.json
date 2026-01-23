@@ -1,0 +1,42 @@
+{
+  "name": "latex-renderer",
+  "private": true,
+  "version": "1.0.0",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@fontsource/outfit": "^5.2.8",
+    "@lexical/react": "^0.39.0",
+    "@lexical/rich-text": "^0.39.0",
+    "@lexical/selection": "^0.39.0",
+    "@lexical/table": "^0.39.0",
+    "@lexical/utils": "^0.39.0",
+    "@react-three/drei": "^10.7.7",
+    "@react-three/fiber": "^9.5.0",
+    "@tailwindcss/vite": "^4.1.18",
+    "jspdf": "^4.0.0",
+    "lexical": "^0.39.0",
+    "lucide-react": "^0.460.0",
+    "mathlive": "^0.101.0",
+    "react": "^19.2.3",
+    "react-aria-components": "^1.4.0",
+    "react-dom": "^19.2.3",
+    "svg2pdf.js": "^2.7.0",
+    "tailwindcss": "^4.1.18",
+    "three": "^0.182.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.0.10",
+    "@types/react": "^19.2.9",
+    "@types/react-dom": "^19.2.3",
+    "@types/three": "^0.182.0",
+    "@vitejs/plugin-react": "^4.3.3",
+    "typescript": "^5.6.3",
+    "vite": "^6.0.1"
+  }
+}

@@ -1,3 +1,4 @@
+// for use in named Container Volumes
 {
   "name": "Dev Container Template",
   "image": "mcr.microsoft.com/devcontainers/typescript-node",
@@ -30,7 +31,7 @@
     "ghcr.io/joedmck/devcontainer-features/wrangler:1": {
       "version": "latest"
     }*/
-   },
+  },
   /* Install additional packages
   "postCreateCommand": "echo 'Post-create command executed!'",
   */
@@ -47,6 +48,5 @@
     "source=${localEnv:HOME}/.config/gh,target=/home/node/.config/gh,type=bind",
     // mount Git config
     "source=${localEnv:HOME}/.gitconfig,target=/home/node/.gitconfig,type=bind,readonly"
-
   ]
 }
