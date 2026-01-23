@@ -525,7 +525,7 @@ math-field:focus-visible {
   position: relative;
   width: 100%;
   min-height: 12rem;
-  border: 2px solid rgba(45, 212, 168, 0.1);
+  border: 1px solid rgba(45, 212, 168, 0.1);
   border-radius: 0.125rem;
   background: rgba(17, 24, 39, 0.5);
   overflow: hidden;
@@ -598,26 +598,26 @@ math-field:focus-visible {
 
 /* Outer borders - applied to table */
 .table-outer-borders {
-  border: 2px solid rgba(45, 212, 168, 0.4);
+  border: 1px solid rgba(45, 212, 168, 0.4);
   border-radius: 0.125rem;
 }
 
 /* Column separators */
 .table-col-separators th:not(:last-child),
 .table-col-separators td:not(:last-child) {
-  border-right: 2px solid rgba(45, 212, 168, 0.3);
+  border-right: 1px solid rgba(45, 212, 168, 0.3);
 }
 
 /* Row separators */
 .table-row-separators tr:not(:last-child) th,
 .table-row-separators tr:not(:last-child) td {
-  border-bottom: 2px solid rgba(45, 212, 168, 0.3);
+  border-bottom: 1px solid rgba(45, 212, 168, 0.3);
 }
 
 /* Header row separator (stronger line after header) */
 .table-has-header tr:first-child th,
 .table-has-header tr:first-child td {
-  border-bottom: 2px solid rgba(45, 212, 168, 0.5);
+  border-bottom: 1px solid rgba(45, 212, 168, 0.5);
 }
 
 /* === Horizontal Alignment Classes === */
@@ -641,8 +641,8 @@ math-field:focus-visible {
 .lexical-content-editable td[data-lexical-selected],
 .lexical-content-editable th[data-lexical-selected] {
   background: rgba(45, 212, 168, 0.2) !important;
-  outline: 2px solid rgba(45, 212, 168, 0.5);
-  outline-offset: -2px;
+  outline: 1px solid rgba(45, 212, 168, 0.5);
+  outline-offset: -1px;
 }
 
 /* Lexical theme classes */
