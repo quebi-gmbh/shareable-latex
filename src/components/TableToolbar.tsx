@@ -13,6 +13,7 @@ import {
   Grid3X3,
   TableIcon,
   ChevronDown,
+  Languages,
 } from "lucide-react";
 import { useTableActions } from "../hooks/useTableActions";
 
@@ -333,6 +334,17 @@ export function TableToolbar({ onTableChange }: TableToolbarProps) {
       </div>
 
       <div className="hidden sm:block w-px h-6 bg-[rgba(45,212,168,0.2)] mx-1" />
+
+      {/* Convert to international number format */}
+      <button
+        onClick={() => handleAction(actions.convertGermanToInternational)}
+        className={`${btnBase} ${btnDefault}`}
+        title="Convert to international number format"
+      >
+        <Languages size={14} />
+      </button>
+
+      <div className="w-px h-6 bg-[rgba(45,212,168,0.2)] mx-1" />
 
       {/* Horizontal Alignment (column-specific) - always in dropdown */}
       <div className="flex items-center gap-0.5">

@@ -8,13 +8,19 @@ import {
   getSerializer,
   convertFormat,
 } from '../utils/formatRegistry';
+import { setTableMetadata, getTableMetadata } from '../utils/lexicalTableUtils';
 import type { ParsedTable, SyncSource } from '../types/table';
 import type { ArrayFormat, FormatConfig } from '../types/arrayFormat';
+import type { TableStyle } from '../utils/urlEncoding';
 
 interface UseTableSyncOptions {
   initialCode?: string;
   initialFormat?: ArrayFormat;
+  initialStyle?: TableStyle;
   debounceMs?: number;
+  onCodeChange?: (code: string) => void;
+  onFormatChange?: (format: ArrayFormat) => void;
+  onStyleChange?: (style: TableStyle) => void;
 }
 
 interface UseTableSyncReturn {
@@ -33,8 +39,19 @@ export function useTableSync(options: UseTableSyncOptions = {}): UseTableSyncRet
   const {
     initialCode = '',
     initialFormat = 'latex',
+    initialStyle,
     debounceMs = 300,
+    onCodeChange,
+    onFormatChange,
+    onStyleChange,
   } = options;
+
+  // Initialize table metadata from URL style if provided
+  const initializedRef = useRef(false);
+  if (!initializedRef.current && initialStyle) {
+    setTableMetadata(initialStyle);
+    initializedRef.current = true;
+  }
 
   const [format, setFormatState] = useState<ArrayFormat>(initialFormat);
   const [code, setCode] = useState<string>(initialCode || generateDefaultTableLatex());
@@ -48,6 +65,31 @@ export function useTableSync(options: UseTableSyncOptions = {}): UseTableSyncRet
 
   // Use ref for sync source to avoid timing issues with state updates
   const syncSourceRef = useRef<SyncSource>('none');
+
+  // Track style changes and notify parent
+  const lastStyleRef = useRef<string>('');
+  useEffect(() => {
+    if (!onStyleChange) return;
+
+    const checkStyleChange = () => {
+      const currentMetadata = getTableMetadata();
+      const styleKey = JSON.stringify(currentMetadata);
+      if (styleKey !== lastStyleRef.current) {
+        lastStyleRef.current = styleKey;
+        onStyleChange({
+          hasHeaderRow: currentMetadata.hasHeaderRow,
+          hasOuterBorders: currentMetadata.hasOuterBorders,
+          hasColumnSeparators: currentMetadata.hasColumnSeparators,
+          hasRowSeparators: currentMetadata.hasRowSeparators,
+          columnAlignments: currentMetadata.columnAlignments,
+        });
+      }
+    };
+
+    // Check for style changes periodically (metadata is module-level, not reactive)
+    const interval = setInterval(checkStyleChange, 200);
+    return () => clearInterval(interval);
+  }, [onStyleChange]);
 
   // Debounce code input for parsing
   const debouncedCode = useDebounce(code, debounceMs);
@@ -83,12 +125,13 @@ export function useTableSync(options: UseTableSyncOptions = {}): UseTableSyncRet
   const handleCodeChange = useCallback((value: string) => {
     syncSourceRef.current = 'latex';
     setCode(value);
+    onCodeChange?.(value);
 
     // Reset sync source after debounce period + buffer
     setTimeout(() => {
       syncSourceRef.current = 'none';
     }, debounceMs + 50);
-  }, [debounceMs]);
+  }, [debounceMs, onCodeChange]);
 
   // Handle Lexical editor changes
   const handleLexicalChange = useCallback((table: ParsedTable) => {
@@ -99,13 +142,14 @@ export function useTableSync(options: UseTableSyncOptions = {}): UseTableSyncRet
     const serializer = getSerializer(format);
     const serialized = serializer(table);
     setCode(serialized);
+    onCodeChange?.(serialized);
     setParseError(null);
 
     // Keep syncSource as 'lexical' longer to prevent feedback loop
     setTimeout(() => {
       syncSourceRef.current = 'none';
     }, 100);
-  }, [format]);
+  }, [format, onCodeChange]);
 
   // Handle format change with conversion
   const setFormat = useCallback((newFormat: ArrayFormat) => {
@@ -120,16 +164,18 @@ export function useTableSync(options: UseTableSyncOptions = {}): UseTableSyncRet
       setParseError(error);
     } else {
       setCode(result);
+      onCodeChange?.(result);
       setParseError(null);
     }
 
     setFormatState(newFormat);
+    onFormatChange?.(newFormat);
 
     // Reset sync source after a delay
     setTimeout(() => {
       syncSourceRef.current = 'none';
     }, 100);
-  }, [format, code]);
+  }, [format, code, onCodeChange, onFormatChange]);
 
   return {
     code,

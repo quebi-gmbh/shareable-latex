@@ -1,5 +1,5 @@
-import { useState, useRef } from "react";
-import { useFormulaUrl } from "../hooks/useFormulaUrl";
+import { useRef } from "react";
+import { useUrlState } from "../hooks/useUrlState";
 import { useDebounce } from "../hooks/useDebounce";
 import { Background } from "./Background";
 import { Header } from "./Header";
@@ -8,11 +8,20 @@ import { FormulaInput } from "./FormulaInput";
 import { FormulaRenderer, FormulaRendererRef } from "./FormulaRenderer";
 import { ShareButton } from "./ShareButton";
 import { DownloadRasterMenu, DownloadVectorMenu } from "./DownloadMenu";
-import type { InputMode } from "./InputModeToggle";
 
 export function App() {
-  const [formula, setFormula] = useFormulaUrl();
-  const [inputMode, setInputMode] = useState<InputMode>("visual");
+  const {
+    formula,
+    setFormula,
+    mode,
+    setMode,
+    tableCode,
+    setTableCode,
+    format,
+    setFormat,
+    style,
+    setStyle,
+  } = useUrlState();
   const formulaRef = useRef<FormulaRendererRef>(null);
 
   // Debounce rendering to avoid excessive re-renders while typing
@@ -34,11 +43,17 @@ export function App() {
             <FormulaInput
               value={formula}
               onChange={setFormula}
-              mode={inputMode}
-              onModeChange={setInputMode}
+              mode={mode}
+              onModeChange={setMode}
+              tableCode={tableCode}
+              onTableCodeChange={setTableCode}
+              tableFormat={format}
+              onTableFormatChange={setFormat}
+              tableStyle={style}
+              onTableStyleChange={setStyle}
             />
 
-            {inputMode !== "table" && (
+            {mode !== "table" && (
               <>
                 <FormulaRenderer ref={formulaRef} latex={debouncedFormula} />
 

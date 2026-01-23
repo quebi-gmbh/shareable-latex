@@ -7,8 +7,26 @@ import { TablePreview, TablePreviewRef } from "./TablePreview";
 import { DownloadRasterMenu, DownloadVectorMenu } from "./DownloadMenu";
 import { useTableSync } from "../hooks/useTableSync";
 import { isMathJaxCompatible } from "../utils/formatRegistry";
+import type { ArrayFormat } from "../types/arrayFormat";
+import type { TableStyle } from "../utils/urlEncoding";
 
-export function TableEditor() {
+interface TableEditorProps {
+  initialCode?: string;
+  initialFormat?: ArrayFormat;
+  initialStyle?: TableStyle;
+  onCodeChange?: (code: string) => void;
+  onFormatChange?: (format: ArrayFormat) => void;
+  onStyleChange?: (style: TableStyle) => void;
+}
+
+export function TableEditor({
+  initialCode,
+  initialFormat,
+  initialStyle,
+  onCodeChange,
+  onFormatChange,
+  onStyleChange,
+}: TableEditorProps) {
   const {
     code,
     parsedTable,
@@ -19,7 +37,14 @@ export function TableEditor() {
     format,
     setFormat,
     formatConfig,
-  } = useTableSync();
+  } = useTableSync({
+    initialCode,
+    initialFormat,
+    initialStyle,
+    onCodeChange,
+    onFormatChange,
+    onStyleChange,
+  });
 
   const previewRef = useRef<TablePreviewRef>(null);
 
