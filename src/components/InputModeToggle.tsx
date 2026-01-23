@@ -18,7 +18,7 @@ const toggleButtonClasses = `
   hover:border-[rgba(45,212,168,0.3)] hover:text-[#f9fafb] hover:shadow-[0_0_30px_rgba(45,212,168,0.15)]
   data-[selected=true]:bg-gradient-to-br data-[selected=true]:from-[rgba(45,212,168,0.2)] data-[selected=true]:to-[rgba(6,182,212,0.1)]
   data-[selected=true]:text-[#2dd4a8] data-[selected=true]:border-[rgba(45,212,168,0.5)] data-[selected=true]:shadow-[0_0_30px_rgba(45,212,168,0.15)]
-  focus-visible:outline-2 focus-visible:outline-[#2dd4a8] focus-visible:outline-offset-2 border-2
+  focus-visible:outline-2 focus-visible:outline-[#2dd4a8] focus-visible:outline-offset-2 border-1
 `;
 
 export function InputModeToggle({ mode, onModeChange }: InputModeToggleProps) {

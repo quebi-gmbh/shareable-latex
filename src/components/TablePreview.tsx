@@ -96,7 +96,7 @@ export const TablePreview = forwardRef<TablePreviewRef, TablePreviewProps>(
 
     return (
       <section
-        className="table-preview relative bg-gradient-to-br from-[rgba(17,24,39,0.5)] to-[rgba(6,182,212,0.05)] border border-[rgba(45,212,168,0.1)] rounded-sm overflow-hidden border-2"
+        className="table-preview relative bg-gradient-to-br from-[rgba(17,24,39,0.5)] to-[rgba(6,182,212,0.05)] border border-[rgba(45,212,168,0.1)] rounded-sm overflow-hidden border-1"
         aria-labelledby="table-preview-heading"
       >
         <h2 id="table-preview-heading" className="sr-only">
@@ -135,5 +135,5 @@ export const TablePreview = forwardRef<TablePreviewRef, TablePreviewProps>(
         </div>
       </section>
     );
-  }
+  },
 );

@@ -1,12 +1,12 @@
-import { useRef } from 'react';
-import { TextField, Label, TextArea } from 'react-aria-components';
-import { AlertCircle } from 'lucide-react';
-import { LexicalTableEditor } from './LexicalTableEditor';
-import { FormatSelector } from './FormatSelector';
-import { TablePreview, TablePreviewRef } from './TablePreview';
-import { DownloadRasterMenu, DownloadVectorMenu } from './DownloadMenu';
-import { useTableSync } from '../hooks/useTableSync';
-import { isMathJaxCompatible } from '../utils/formatRegistry';
+import { useRef } from "react";
+import { TextField, Label, TextArea } from "react-aria-components";
+import { AlertCircle } from "lucide-react";
+import { LexicalTableEditor } from "./LexicalTableEditor";
+import { FormatSelector } from "./FormatSelector";
+import { TablePreview, TablePreviewRef } from "./TablePreview";
+import { DownloadRasterMenu, DownloadVectorMenu } from "./DownloadMenu";
+import { useTableSync } from "../hooks/useTableSync";
+import { isMathJaxCompatible } from "../utils/formatRegistry";
 
 export function TableEditor() {
   const {
@@ -47,7 +47,7 @@ export function TableEditor() {
           <TextArea
             placeholder={formatConfig.placeholder}
             rows={8}
-            className="w-full p-4 border border-[rgba(45,212,168,0.1)] rounded-sm font-mono text-[0.875rem] leading-relaxed bg-[rgba(17,24,39,0.5)] text-[#f9fafb] resize-y min-h-32 transition-all duration-300 placeholder:text-[#6b7280] focus:outline-none focus:border-[rgba(45,212,168,0.5)] focus:shadow-[0_0_30px_rgba(45,212,168,0.15),inset_0_0_20px_rgba(45,212,168,0.05)] border-2"
+            className="w-full p-4 border border-[rgba(45,212,168,0.1)] rounded-sm font-mono text-[0.875rem] leading-relaxed bg-[rgba(17,24,39,0.5)] text-[#f9fafb] resize-y min-h-32 transition-all duration-300 placeholder:text-[#6b7280] focus:outline-none focus:border-[rgba(45,212,168,0.5)] focus:shadow-[0_0_30px_rgba(45,212,168,0.15),inset_0_0_20px_rgba(45,212,168,0.05)] border-1"
           />
         </TextField>
         {parseError && (
@@ -55,7 +55,11 @@ export function TableEditor() {
             className="flex items-start gap-2 text-[#f87171] text-sm p-3 bg-[rgba(248,113,113,0.1)] border border-[rgba(248,113,113,0.2)] rounded-md mt-2"
             role="alert"
           >
-            <AlertCircle size={16} aria-hidden="true" className="shrink-0 mt-0.5" />
+            <AlertCircle
+              size={16}
+              aria-hidden="true"
+              className="shrink-0 mt-0.5"
+            />
             <span>{parseError}</span>
           </div>
         )}

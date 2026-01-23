@@ -108,7 +108,7 @@ export const FormulaRenderer = forwardRef<
 
   return (
     <section
-      className="formula-renderer relative bg-gradient-to-br from-[rgba(17,24,39,0.5)] to-[rgba(6,182,212,0.05)] border border-[rgba(45,212,168,0.1)] rounded-sm overflow-hidden border-2"
+      className="formula-renderer relative bg-gradient-to-br from-[rgba(17,24,39,0.5)] to-[rgba(6,182,212,0.05)] border border-[rgba(45,212,168,0.1)] rounded-sm overflow-hidden border-1"
       aria-labelledby="output-heading"
     >
       <h2 id="output-heading" className="sr-only">

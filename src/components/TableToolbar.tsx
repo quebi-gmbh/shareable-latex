@@ -103,7 +103,7 @@ export function TableToolbar({ onTableChange }: TableToolbarProps) {
   };
 
   const btnBase =
-    "relative flex items-center justify-center w-8 h-8 rounded-md border cursor-pointer transition-all duration-150 border-2";
+    "relative flex items-center justify-center w-8 h-8 rounded-md border cursor-pointer transition-all duration-150 border-1";
   const btnDefault =
     "text-[#d1d5db] bg-[rgba(45,212,168,0.05)] border-[rgba(45,212,168,0.15)] hover:text-[#f9fafb] hover:bg-[rgba(45,212,168,0.15)] hover:border-[rgba(45,212,168,0.3)] active:scale-95";
   const btnActive =
@@ -123,7 +123,7 @@ export function TableToolbar({ onTableChange }: TableToolbarProps) {
     "text-[#f87171] hover:text-[#fca5a5] hover:bg-[rgba(248,113,113,0.15)]";
 
   return (
-    <div className="flex items-center gap-1 px-2 py-1.5 bg-[rgba(17,24,39,0.8)] border border-2 border-[rgba(45,212,168,0.15)] rounded-lg mb-2 flex-wrap">
+    <div className="flex items-center gap-1 px-2 py-1.5 bg-[rgba(17,24,39,0.8)] border border-1 border-[rgba(45,212,168,0.15)] rounded-lg mb-2 flex-wrap">
       {/* Row actions - visible on wider screens */}
       <div className="hidden sm:flex items-center gap-0.5">
         <button
@@ -390,7 +390,7 @@ export function TableToolbar({ onTableChange }: TableToolbarProps) {
                         actions.setColumnAlignment(idx, "left"),
                       )
                     }
-                    className={`p-1 rounded border-2 ${align === "left" ? "border-[rgba(45,212,168,0.5)] bg-[rgba(45,212,168,0.2)] text-[#2dd4a8]" : "border-transparent text-[#9ca3af] hover:text-[#f9fafb]"}`}
+                    className={`p-1 rounded border-1 ${align === "left" ? "border-[rgba(45,212,168,0.5)] bg-[rgba(45,212,168,0.2)] text-[#2dd4a8]" : "border-transparent text-[#9ca3af] hover:text-[#f9fafb]"}`}
                     title="Left"
                   >
                     <AlignLeft size={12} />
@@ -401,7 +401,7 @@ export function TableToolbar({ onTableChange }: TableToolbarProps) {
                         actions.setColumnAlignment(idx, "center"),
                       )
                     }
-                    className={`p-1 rounded border-2 ${align === "center" ? "border-[rgba(45,212,168,0.5)] bg-[rgba(45,212,168,0.2)] text-[#2dd4a8]" : "border-transparent text-[#9ca3af] hover:text-[#f9fafb]"}`}
+                    className={`p-1 rounded border-1 ${align === "center" ? "border-[rgba(45,212,168,0.5)] bg-[rgba(45,212,168,0.2)] text-[#2dd4a8]" : "border-transparent text-[#9ca3af] hover:text-[#f9fafb]"}`}
                     title="Center"
                   >
                     <AlignCenter size={12} />
@@ -412,7 +412,7 @@ export function TableToolbar({ onTableChange }: TableToolbarProps) {
                         actions.setColumnAlignment(idx, "right"),
                       )
                     }
-                    className={`p-1 rounded border-2 ${align === "right" ? "border-[rgba(45,212,168,0.5)] bg-[rgba(45,212,168,0.2)] text-[#2dd4a8]" : "border-transparent text-[#9ca3af] hover:text-[#f9fafb]"}`}
+                    className={`p-1 rounded border-1 ${align === "right" ? "border-[rgba(45,212,168,0.5)] bg-[rgba(45,212,168,0.2)] text-[#2dd4a8]" : "border-transparent text-[#9ca3af] hover:text-[#f9fafb]"}`}
                     title="Right"
                   >
                     <AlignRight size={12} />
