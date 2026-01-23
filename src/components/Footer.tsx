@@ -1,5 +1,3 @@
-import { Heart } from "lucide-react";
-
 export function Footer() {
   return (
     <footer className="relative z-10 bg-gradient-to-t from-[rgba(3,7,18,0.9)] to-transparent backdrop-blur-md border-t border-[rgba(45,212,168,0.1)] py-6 px-8 text-center">

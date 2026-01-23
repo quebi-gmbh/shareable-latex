@@ -1,4 +1,4 @@
-import type { ParsedTable, TableRow, TableHorizontalAlignment } from '../types/table';
+import type { ParsedTable, TableRow, TableAlignment } from '../types/table';
 
 type MatrixEnvironment = 'array' | 'matrix' | 'pmatrix' | 'bmatrix' | 'Bmatrix' | 'vmatrix' | 'Vmatrix';
 
@@ -6,8 +6,8 @@ type MatrixEnvironment = 'array' | 'matrix' | 'pmatrix' | 'bmatrix' | 'Bmatrix' 
  * Parse column specification from array environment
  * e.g., "lcr" -> ['left', 'center', 'right']
  */
-function parseColumnSpec(spec: string): TableHorizontalAlignment[] {
-  const alignments: TableHorizontalAlignment[] = [];
+function parseColumnSpec(spec: string): TableAlignment[] {
+  const alignments: TableAlignment[] = [];
 
   for (const char of spec) {
     switch (char) {
@@ -83,7 +83,7 @@ function parseMatrixEnvironment(
   }
 
   // Parse column alignments from spec, or infer from content
-  let columnAlignments: TableHorizontalAlignment[];
+  let columnAlignments: TableAlignment[];
 
   if (colSpec) {
     columnAlignments = parseColumnSpec(colSpec);
@@ -117,7 +117,6 @@ function parseMatrixEnvironment(
     rows,
     columnCount: actualColumnCount,
     columnAlignments,
-    columnVerticalAlignments: Array(actualColumnCount).fill('middle'),
     hasHeaderRow: false,
     hasOuterBorders: false,
     hasColumnSeparators: false,
