@@ -4,7 +4,7 @@ A modern web-based LaTeX formula renderer and table editor with live editing, mu
 
 ## Start
 
-Hosted by Github Pages under [latex.quebi.de](latex.quebi.de)
+Hosted by Github Pages under [latex.quebi.de](https://latex.quebi.de)
 
 ## Features
 
