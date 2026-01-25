@@ -2,6 +2,10 @@
 
 A modern web-based LaTeX formula renderer and table editor with live editing, multi-format export, and URL-based sharing.
 
+## Start
+
+Hosted by Github Pages under [latex.quebi.de](latex.quebi.de)
+
 ## Features
 
 ### Formula Editing
