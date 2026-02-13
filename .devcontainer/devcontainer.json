@@ -1,6 +1,6 @@
 // for use in named Container Volumes
 {
-  "name": "Dev Container Template",
+  "name": "Sharable Latex Dev Container",
   "image": "mcr.microsoft.com/devcontainers/typescript-node",
   "remoteUser": "node",
   "workspaceFolder": "/workspace",
