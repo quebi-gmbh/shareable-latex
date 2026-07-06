@@ -34,16 +34,25 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Type check
+        run: pnpm run typecheck
+
       - name: Build
         run: pnpm run build
 
+      # GitHub Pages serves 404.html for any unknown path. React Router emits a
+      # __spa-fallback.html that hydrates any route — use it so non-prerendered
+      # paths (e.g. shared ?formula= deep links) still resolve client-side.
+      - name: SPA fallback for unknown paths
+        run: cp build/client/__spa-fallback.html build/client/404.html 2>/dev/null || cp build/client/index.html build/client/404.html
+
       - name: Setup Pages
-        uses: actions/configure-pages@v4
+        uses: actions/configure-pages@v5
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './dist'
+          path: './build/client'
 
   deploy:
     environment:

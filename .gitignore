@@ -3,6 +3,15 @@ node_modules/
 
 # Build output
 dist/
+build/
+.react-router/
+
+# Generated into public/ by scripts/prebuild.ts at build time
+public/sitemap.xml
+public/robots.txt
+
+# TypeScript build cache
+*.tsbuildinfo
 
 # IDE
 .vscode/
