@@ -33,6 +33,19 @@ Hosted by Github Pages under [latex.quebi.de](https://latex.quebi.de)
 - Share links that reconstruct the exact formula
 - Browser back/forward navigation support
 
+### SEO & Static Generation
+
+- Built with React Router in **SSG mode** (`ssr: false` + `prerender`) — every
+  route is prerendered to complete static HTML at build time, so crawlers and
+  social/AI scrapers get real content and per-page metadata without running JS.
+- The interactive editor is client-gated behind hydration; the prerendered home
+  page ships a crawlable intro while the app loads.
+- A gallery of example formulas lives at `/examples`, one prerendered landing
+  page per formula (`/examples/quadratic-formula`, …) with a deep link that
+  opens each one in the editor.
+- `sitemap.xml` and `robots.txt` are generated from a single route registry
+  (`app/lib/site-routes.ts`) at build time so they never drift.
+
 ## Getting Started
 
 ```bash
@@ -49,6 +62,7 @@ pnpm build
 ## Tech Stack
 
 - [React](https://react.dev/) — UI framework
+- [React Router](https://reactrouter.com/) — Routing + static site generation (SSG)
 - [TypeScript](https://www.typescriptlang.org/) — Type safety
 - [Vite](https://vitejs.dev/) — Build tool
 - [Tailwind CSS](https://tailwindcss.com/) — Styling

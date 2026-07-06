@@ -5,8 +5,10 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "dev": "vite --host",
-    "build": "tsc -b && vite build",
+    "predev": "tsx scripts/prebuild.ts",
+    "dev": "react-router dev --host",
+    "build": "tsx scripts/prebuild.ts && react-router build",
+    "typecheck": "react-router typegen && tsc",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -16,6 +18,7 @@
     "@lexical/selection": "^0.39.0",
     "@lexical/table": "^0.39.0",
     "@lexical/utils": "^0.39.0",
+    "@react-router/node": "^8.1.0",
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.5.0",
     "@tailwindcss/vite": "^4.1.18",
@@ -26,16 +29,23 @@
     "react": "^19.2.3",
     "react-aria-components": "^1.4.0",
     "react-dom": "^19.2.3",
+    "react-router": "^8.1.0",
     "svg2pdf.js": "^2.7.0",
     "tailwindcss": "^4.1.18",
     "three": "^0.182.0"
   },
+  "pnpm": {
+    "onlyBuiltDependencies": ["esbuild"]
+  },
   "devDependencies": {
+    "@react-router/dev": "^8.1.0",
+    "@react-router/fs-routes": "^8.1.0",
     "@types/node": "^25.0.10",
     "@types/react": "^19.2.9",
     "@types/react-dom": "^19.2.3",
     "@types/three": "^0.182.0",
-    "@vitejs/plugin-react": "^4.3.3",
+    "isbot": "^5.1.44",
+    "tsx": "^4.19.2",
     "typescript": "^5.6.3",
     "vite": "^6.0.1"
   }
